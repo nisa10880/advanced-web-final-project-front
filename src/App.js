@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Provider } from "react-redux";
+import { store } from "./state/store";
+import GenderRadio from './GenderRadio';
+import { TextField } from '@material-ui/core';
 
-function App() {
-  return (
+const App = () => (
+  <Provider store={store}>
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <TextField id="name" label="Name" />
+      <TextField id="last-name" label="Last Name" />
+      <GenderRadio></GenderRadio>
     </div>
-  );
-}
+  </Provider>
+);
+
+App.propTypes = {};
+
 
 export default App;
