@@ -59,18 +59,19 @@ function StyledRadio(props) {
             color="default"
             checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
             icon={<span className={classes.icon} />}
+            onChange={props.onChange}
             {...props}
         />
     );
 }
 
-export default function GenderRadio() {
+export default function GenderRadio(props) {
     return (
         <FormControl component="fieldset">
             <FormLabel component="legend">Gender</FormLabel>
-            <RadioGroup defaultValue="female" aria-label="gender" name="customized-radios">
-                <FormControlLabel value="female" control={<StyledRadio />} label="Female" />
-                <FormControlLabel value="male" control={<StyledRadio />} label="Male" />
+            <RadioGroup defaultValue="M" aria-label="gender" name="customized-radios" onChange={props.onChange}>
+                <FormControlLabel value="F" control={<StyledRadio />} label="Female" />
+                <FormControlLabel value="M" control={<StyledRadio />} label="Male" />
             </RadioGroup>
         </FormControl>
     );
