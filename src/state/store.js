@@ -1,17 +1,14 @@
 import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import thunk from 'redux-thunk';
 
-import { studentReducer } from './student/student-reducer'
-import { professorReducer } from './professor/professor-reducer'
+import { studentsReducer } from './students/students-reducer';
+import { professorsReducer } from './professors/professors-reducer';
 
 
 const reducers = combineReducers({
-  studentReducer,
-  professorReducer
+  students: studentsReducer,
+  professors: professorsReducer,
 });
-
-
-
 
 export const store = createStore(
   reducers,

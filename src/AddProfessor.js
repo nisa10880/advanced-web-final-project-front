@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { TextField, Button } from "@material-ui/core"
 import GenderRadio from "./GenderRadio"
 import { useDispatch } from 'react-redux'
-import { addProfessor } from './state/professor/professor-actions'
+import { addProfessor } from './state/professors/professors-actions'
 
 
 
