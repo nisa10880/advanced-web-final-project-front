@@ -41,6 +41,16 @@ const ItemsList = ({data, extractPrimary, extractSecondary}) => {
   )
 }
 
+const Panel = ({title, children}) => {
+  const classes = useStyles();
+  return (
+    <Paper className={classes.item}>
+      <Typography variant="h4" component="h2">{title}</Typography>
+      {children}
+    </Paper>
+  );
+}
+
 export const Home = () => {
   const classes = useStyles();
 
@@ -63,24 +73,27 @@ export const Home = () => {
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} sm={6}>
-        <Paper className={classes.item}>
-          <Typography variant="h4" component="h2">Maisons</Typography>
+        <Panel title="Maisons">
           <ItemsList
             data={houses}
             extractPrimary={(house) => house.name}
             extractSecondary={(house) => house.points}
           />
-        </Paper>
+        </Panel>
       </Grid>
       <Grid item xs={12} sm={6}>
-        <Paper className={classes.item}>
-          <Typography variant="h4" component="h2">Professeurs</Typography>
+        <Panel title="Professeurs">
           <ItemsList
             data={professors}
             extractPrimary={(prof) => `${prof.firstname} ${prof.lastname}`}
             extractSecondary={(prof) => prof.points}
           />
-        </Paper>
+        </Panel>
+      </Grid>
+      <Grid item xs={12}>
+        <Panel title="Actions">
+          
+        </Panel>
       </Grid>
     </Grid>
   );
