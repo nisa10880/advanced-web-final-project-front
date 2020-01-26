@@ -23,7 +23,9 @@ export const getHouses = () => {
     try {
       dispatch(getHousesLoading());
       const response = await api.get('/houses');
-      dispatch(getHousesSuccess(response.data));
+      const houses = response.data;
+      houses.sort((a, b) => b.points - a.points);
+      dispatch(getHousesSuccess(houses));
     } catch (error) {
       dispatch(getHousesFailure(error));
       throw error;

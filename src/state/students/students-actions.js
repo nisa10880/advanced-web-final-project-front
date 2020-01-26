@@ -42,7 +42,9 @@ export const getStudents = () => {
     try {
       dispatch(getStudentsLoading());
       const response = await api.get('/students');
-      dispatch(getStudentsSuccess(response.data));
+      const students = response.data;
+      students.sort((a, b) => b.lastname - a.lastname);
+      dispatch(getStudentsSuccess(students));
     } catch (error) {
       dispatch(getStudentsFailure(error));
       throw error;

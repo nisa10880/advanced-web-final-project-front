@@ -42,7 +42,9 @@ export const getProfessors = () => {
     try {
       dispatch(getProfessorsLoading());
       const response = await api.get('/professors');
-      dispatch(getProfessorsSuccess(response.data));
+      const professors = response.data;
+      professors.sort((a, b) => b.points - a.points);
+      dispatch(getProfessorsSuccess(professors));
     } catch (error) {
       dispatch(getProfessorsFailure(error));
       throw error;
