@@ -1,4 +1,4 @@
-import { GET_HOUSES_LOADING, GET_HOUSES_SUCCESS } from "./houses-actions";
+import { GET_HOUSES_LOADING, GET_HOUSES_SUCCESS } from './houses-actions';
 
 const initialState = {
   loading: false,

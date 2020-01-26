@@ -1,8 +1,8 @@
 import { api } from '../../api';
 
-export const GET_HOUSES_LOADING = "GET_HOUSES_LOADING";
-export const GET_HOUSES_SUCCESS = "GET_HOUSES_SUCCESS";
-export const GET_HOUSES_FAILURE = "GET_HOUSES_FAILURE";
+export const GET_HOUSES_LOADING = 'GET_HOUSES_LOADING';
+export const GET_HOUSES_SUCCESS = 'GET_HOUSES_SUCCESS';
+export const GET_HOUSES_FAILURE = 'GET_HOUSES_FAILURE';
 
 export const getHousesLoading = () => ({
   type: GET_HOUSES_LOADING,
@@ -10,7 +10,7 @@ export const getHousesLoading = () => ({
 
 export const getHousesSuccess = (houses) => ({
   type: GET_HOUSES_SUCCESS,
-  payload: houses
+  payload: houses,
 });
 
 export const getHousesFailure = (error) => ({
@@ -19,7 +19,7 @@ export const getHousesFailure = (error) => ({
 });
 
 export const getHouses = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(getHousesLoading());
       const response = await api.get('/houses');

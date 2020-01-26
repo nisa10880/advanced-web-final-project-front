@@ -1,5 +1,8 @@
 import { housesReducer } from '../../state/houses/houses-reducer';
-import { getHousesLoading, getHousesSuccess } from '../../state/houses/houses-actions';
+import {
+  getHousesLoading,
+  getHousesSuccess,
+} from '../../state/houses/houses-actions';
 
 describe('House reducer', () => {
   it('sets the loading property to true when loading houses', () => {

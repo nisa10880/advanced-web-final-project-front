@@ -1,4 +1,8 @@
-import { ADD_STUDENT_SUCCESS, GET_STUDENTS_SUCCESS, GET_STUDENTS_LOADING } from "./students-actions";
+import {
+  ADD_STUDENT_SUCCESS,
+  GET_STUDENTS_SUCCESS,
+  GET_STUDENTS_LOADING,
+} from './students-actions';
 
 const initialState = {
   loading: false,

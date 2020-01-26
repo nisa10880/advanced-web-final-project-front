@@ -1,4 +1,9 @@
-import { addPoints, addPointsLoading, addPointsSuccess, addPointsFailure } from '../../state/points/points-actions';
+import {
+  addPoints,
+  addPointsLoading,
+  addPointsSuccess,
+  addPointsFailure,
+} from '../../state/points/points-actions';
 import { api } from '../../api';
 import { fetchData } from '../../state/fetchData';
 
@@ -15,9 +20,9 @@ describe('addPoints', () => {
           lastname: 'Doe',
           gender: 'M',
           id_house: 5,
-        }
-      ]
-    }
+        },
+      ],
+    },
   };
 
   const values = {
@@ -40,7 +45,6 @@ describe('addPoints', () => {
     jest.resetAllMocks();
   });
 
-
   it('processes the information and does the right calls', async () => {
     getState.mockReturnValue(state);
 
@@ -54,11 +58,13 @@ describe('addPoints', () => {
   });
 
   it('handles failures', async () => {
-    const err = new Error("Huho");
+    const err = new Error('Huho');
     api.post.mockRejectedValue(err);
     getState.mockReturnValue(state);
 
-    await expect(addPoints(values)(dispatch, getState)).rejects.toThrowError(err);
+    await expect(addPoints(values)(dispatch, getState)).rejects.toThrowError(
+      err,
+    );
     expect(api.post).toHaveBeenCalledTimes(1);
     expect(api.post).toHaveBeenCalledWith('/points', expectedPayload);
     expect(dispatch).toHaveBeenCalledWith(addPointsLoading());

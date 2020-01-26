@@ -1,4 +1,8 @@
-import { ADD_PROFESSOR_SUCCESS, GET_PROFESSORS_SUCCESS, GET_PROFESSORS_LOADING } from "./professors-actions";
+import {
+  ADD_PROFESSOR_SUCCESS,
+  GET_PROFESSORS_SUCCESS,
+  GET_PROFESSORS_LOADING,
+} from './professors-actions';
 
 const initialState = {
   loading: false,

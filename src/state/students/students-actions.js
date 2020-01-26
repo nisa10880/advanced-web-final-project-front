@@ -1,14 +1,13 @@
 import { api } from '../../api';
 import { fetchData } from '../fetchData';
 
-export const GET_STUDENTS_LOADING = "GET_STUDENTS_LOADING";
-export const GET_STUDENTS_SUCCESS = "GET_STUDENT_SUCCESS";
-export const GET_STUDENTS_FAILURE = "GET_STUDENTS_FAILURE";
+export const GET_STUDENTS_LOADING = 'GET_STUDENTS_LOADING';
+export const GET_STUDENTS_SUCCESS = 'GET_STUDENT_SUCCESS';
+export const GET_STUDENTS_FAILURE = 'GET_STUDENTS_FAILURE';
 
-export const ADD_STUDENT_LOADING = "ADD_STUDENT_LOADING";
-export const ADD_STUDENT_SUCCESS = "ADD_STUDENT_SUCCESS";
-export const ADD_STUDENT_FAILURE = "ADD_STUDENT_FAILURE";
-
+export const ADD_STUDENT_LOADING = 'ADD_STUDENT_LOADING';
+export const ADD_STUDENT_SUCCESS = 'ADD_STUDENT_SUCCESS';
+export const ADD_STUDENT_FAILURE = 'ADD_STUDENT_FAILURE';
 
 export const getStudentsLoading = () => ({
   type: GET_STUDENTS_LOADING,
@@ -30,7 +29,7 @@ export const addStudentLoading = () => ({
 
 export const addStudentSuccess = (student) => ({
   type: ADD_STUDENT_SUCCESS,
-  payload: student
+  payload: student,
 });
 
 export const addStudentFailure = (error) => ({
@@ -39,7 +38,7 @@ export const addStudentFailure = (error) => ({
 });
 
 export const getStudents = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(getStudentsLoading());
       const response = await api.get('/students');
@@ -54,7 +53,7 @@ export const getStudents = () => {
 };
 
 export const addStudent = (student) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(addStudentLoading());
       const response = await api.post('/students', student);
