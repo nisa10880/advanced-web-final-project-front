@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'proptypes';
 import { useFormik } from 'formik';
-import { SnackbarContext } from './App';
 
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -60,7 +59,6 @@ SelectPerson.propTypes = {
 
 export const AddPoints = (props) => {
     const classes = useStyles();
-    const {setMessage} = useContext(SnackbarContext);
     const dispatch = useDispatch();
 
     const formik = useFormik({
@@ -74,10 +72,7 @@ export const AddPoints = (props) => {
                 await dispatch(addPoints(values));
                 props.onAdded(values);
                 actions.resetForm();
-                setMessage("Points ajoutés");
-            } catch {
-                setMessage("Impossible d'ajouter ces points. Veuillez réessayer plus tard.");
-            }
+            } catch {}
         }
     });
 

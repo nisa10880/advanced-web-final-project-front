@@ -1,4 +1,5 @@
 import { api } from '../../api';
+import { setSnackbarMessage } from '../snackbar/snackbar-actions';
 
 export const ADD_POINTS_LOADING = "ADD_POINTS_LOADING";
 export const ADD_POINTS_SUCCESS = "ADD_POINTS_SUCCESS";
@@ -30,8 +31,10 @@ export const addPoints = (values) => {
       }
       await api.post('/points', payload);
       dispatch(addPointsSuccess(payload));
+      dispatch(setSnackbarMessage('Points ajoutés'));
     } catch (error) {
       dispatch(addPointsFailure(error));
+      dispatch(setSnackbarMessage('Impossible d\'ajouter ces points. Veuillez réessayer plus tard.'));
       throw error;
     }
   };

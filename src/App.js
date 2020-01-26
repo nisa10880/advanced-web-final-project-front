@@ -1,6 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import './App.css';
-import { Provider } from "react-redux";
+import { Provider, useSelector, useDispatch } from "react-redux";
 import {
   Switch, Route, BrowserRouter as Router,
 } from 'react-router-dom';
@@ -15,10 +15,7 @@ import { store } from "./state/store";
 import { AddStudent } from './pages/AddStudent';
 import { AddProfessor } from './pages/AddProfessor';
 import { Home } from './pages/Home';
-
-export const SnackbarContext = React.createContext({
-  setMessage: () => {}
-});
+import { closeSnackbar } from './state/snackbar/snackbar-actions';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -28,40 +25,32 @@ const useStyles = makeStyles(theme => ({
 
 const App = () => {
   const classes = useStyles();
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState(null);
-  const setMessage = useCallback((message) => {
-    setSnackbarMessage(message);
-    setSnackbarOpen(true);
-  }, [setSnackbarMessage, setSnackbarOpen]);
+  const dispatch = useDispatch();
+  const snackbarState = useSelector(state => state.snackbar);
 
   return (
     <>
       <CssBaseline />
-      <SnackbarContext.Provider value={{setMessage: (message) => {
-        setMessage(message);
-      }}}>
-        <Container maxWidth="lg" className={classes.container}>
-          <Provider store={store}>
-            <Router>
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/add-student" component={AddStudent} />
-                <Route path="/add-professor" component={AddProfessor} />
-              </Switch>
-            </Router>
-          </Provider>
-        </Container>
-      </SnackbarContext.Provider>
+      <Container maxWidth="lg" className={classes.container}>
+        <Provider store={store}>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/add-student" component={AddStudent} />
+              <Route path="/add-professor" component={AddProfessor} />
+            </Switch>
+          </Router>
+        </Provider>
+      </Container>
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
         }}
-        open={snackbarOpen}
-        message={snackbarMessage}
+        open={snackbarState.open}
+        message={snackbarState.message}
         autoHideDuration={3000}
-        onClose={() => setSnackbarOpen(false)}
+        onClose={() => dispatch(closeSnackbar())}
       />
     </>
   );
