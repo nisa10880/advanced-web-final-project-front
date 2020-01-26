@@ -1,4 +1,5 @@
 import { api } from '../../api';
+import { fetchData } from '../store';
 
 export const GET_PROFESSORS_LOADING = "GET_PROFESSORS_LOADING";
 export const GET_PROFESSORS_SUCCESS = "GET_PROFESSOR_SUCCESS";
@@ -58,6 +59,7 @@ export const addProfessor = (professor) => {
       dispatch(addProfessorLoading());
       const response = await api.post('/professors', professor);
       dispatch(addProfessorSuccess(response.data));
+      dispatch(fetchData());
     } catch (error) {
       dispatch(addProfessorFailure(error));
       throw error;

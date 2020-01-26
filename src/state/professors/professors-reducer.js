@@ -20,10 +20,7 @@ export const professorsReducer = (state = initialState, action) => {
     case ADD_PROFESSOR_SUCCESS:
       return {
         loading: false,
-        professors: [
-          ...state.professors,
-          action.payload,
-        ],
+        professors: state.professors,
       };
     default:
       return state;

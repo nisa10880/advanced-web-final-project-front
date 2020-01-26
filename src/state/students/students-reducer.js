@@ -20,10 +20,7 @@ export const studentsReducer = (state = initialState, action) => {
     case ADD_STUDENT_SUCCESS:
       return {
         loading: false,
-        students: [
-          ...state.students,
-          action.payload,
-        ],
+        students: state.students,
       };
     default:
       return state;
