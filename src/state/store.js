@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 
 import { studentsReducer } from './students/students-reducer';
 import { professorsReducer } from './professors/professors-reducer';
+import { housesReducer } from './houses/houses-reducer';
 
 
 const reducers = combineReducers({
   students: studentsReducer,
   professors: professorsReducer,
+  houses: housesReducer,
 });
 
 export const store = createStore(

@@ -45,6 +45,7 @@ export const getProfessors = () => {
       dispatch(getProfessorsSuccess(response.data));
     } catch (error) {
       dispatch(getProfessorsFailure(error));
+      throw error;
     }
   };
 };
@@ -57,6 +58,7 @@ export const addProfessor = (professor) => {
       dispatch(addProfessorSuccess(response.data));
     } catch (error) {
       dispatch(addProfessorFailure(error));
+      throw error;
     }
   };
 };

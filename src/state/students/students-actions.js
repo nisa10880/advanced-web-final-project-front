@@ -37,7 +37,7 @@ export const addStudentFailure = (error) => ({
   error,
 });
 
-export const getStudends = () => {
+export const getStudents = () => {
   return async dispatch => {
     try {
       dispatch(getStudentsLoading());
@@ -45,6 +45,7 @@ export const getStudends = () => {
       dispatch(getStudentsSuccess(response.data));
     } catch (error) {
       dispatch(getStudentsFailure(error));
+      throw error;
     }
   };
 };
@@ -57,6 +58,7 @@ export const addStudent = (student) => {
       dispatch(addStudentSuccess(response.data));
     } catch (error) {
       dispatch(addStudentFailure(error));
+      throw error;
     }
   };
 };

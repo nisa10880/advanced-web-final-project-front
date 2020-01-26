@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
@@ -8,9 +8,16 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { api } from '../api';
+import { AddPoints } from '../AddPoints';
+import { getProfessors } from '../state/professors/professors-actions';
+import { getStudents } from '../state/students/students-actions';
+import { getHouses } from '../state/houses/houses-actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
+  title: {
+    marginBottom: theme.spacing(1),
+  },
   item: {
     padding: theme.spacing(2),
   }
@@ -28,7 +35,7 @@ const ItemsList = ({data, extractPrimary, extractSecondary}) => {
       {
         data.map(el => (
           <ListItem
-            ket={el.id}
+            key={el.id}
           >
             <ListItemText
               primary={extractPrimary(el)}
@@ -45,7 +52,7 @@ const Panel = ({title, children}) => {
   const classes = useStyles();
   return (
     <Paper className={classes.item}>
-      <Typography variant="h4" component="h2">{title}</Typography>
+      <Typography variant="h4" component="h2" className={classes.title}>{title}</Typography>
       {children}
     </Paper>
   );
@@ -53,29 +60,27 @@ const Panel = ({title, children}) => {
 
 export const Home = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const professorsState = useSelector(state => state.professors);
+  const studentsState = useSelector(state => state.students);
+  const housesState = useSelector(state => state.houses);
 
-  const [houses, setHouses] = useState(null);
-  const [professors, setProfessors] = useState(null);
+  const fetchData = useCallback(() => {
+    dispatch(getHouses());
+    dispatch(getProfessors());
+    dispatch(getStudents());
+  }, [dispatch]);
 
   useEffect(() => {
-    api('/houses').then((res) => {
-      const houses = res.data;
-      houses.sort((a, b) => b.points - a.points);
-      setHouses(res.data);
-    });
-    api('/professors').then((res) => {
-      const professors = res.data;
-      professors.sort((a, b) => b.points - a.points);
-      setProfessors(res.data);
-    });
-  }, []);
+    fetchData();
+  }, [fetchData]);
 
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} sm={6}>
         <Panel title="Maisons">
           <ItemsList
-            data={houses}
+            data={housesState.houses}
             extractPrimary={(house) => house.name}
             extractSecondary={(house) => house.points}
           />
@@ -84,15 +89,21 @@ export const Home = () => {
       <Grid item xs={12} sm={6}>
         <Panel title="Professeurs">
           <ItemsList
-            data={professors}
+            data={professorsState.professors}
             extractPrimary={(prof) => `${prof.firstname} ${prof.lastname}`}
             extractSecondary={(prof) => prof.points}
           />
         </Panel>
       </Grid>
-      <Grid item xs={12}>
-        <Panel title="Actions">
-          
+      <Grid item xs={6} sm={4}>
+        <Panel title="Ajouter des points">
+          <AddPoints
+            professors={professorsState.professors}
+            students={studentsState.students}
+            onAdded={() => {
+              fetchData();
+            }}
+          />
         </Panel>
       </Grid>
     </Grid>
