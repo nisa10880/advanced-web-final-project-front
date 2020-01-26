@@ -70,7 +70,6 @@ export const AddPoints = (props) => {
         onSubmit: async (values, actions) => {
             try {
                 await dispatch(addPoints(values));
-                props.onAdded(values);
                 actions.resetForm();
             } catch {}
         }

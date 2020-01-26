@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
@@ -9,10 +9,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { AddPoints } from '../AddPoints';
-import { getProfessors } from '../state/professors/professors-actions';
-import { getStudents } from '../state/students/students-actions';
-import { getHouses } from '../state/houses/houses-actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchData } from '../state/store';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -65,15 +63,9 @@ export const Home = () => {
   const studentsState = useSelector(state => state.students);
   const housesState = useSelector(state => state.houses);
 
-  const fetchData = useCallback(() => {
-    dispatch(getHouses());
-    dispatch(getProfessors());
-    dispatch(getStudents());
-  }, [dispatch]);
-
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    dispatch(fetchData());
+  }, [dispatch]);
 
   return (
     <Grid container spacing={4}>
@@ -100,9 +92,6 @@ export const Home = () => {
           <AddPoints
             professors={professorsState.professors}
             students={studentsState.students}
-            onAdded={() => {
-              fetchData();
-            }}
           />
         </Panel>
       </Grid>
