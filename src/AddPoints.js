@@ -80,7 +80,7 @@ export const AddPoints = (props) => {
                         color="primary"
                     />
                 }
-                label="Enlever des points"
+                label="Enlever ces points"
             />
             <Button
                 variant="contained"
