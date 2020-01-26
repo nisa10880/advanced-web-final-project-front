@@ -3,6 +3,8 @@ import PropTypes from 'proptypes';
 import { useFormik } from 'formik';
 
 import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -16,6 +18,7 @@ import { addPoints } from './state/points/points-actions';
 const useStyles = makeStyles((theme) => ({
     formControl: {
         width: '100%',
+        marginTop: theme.spacing(2),
     },
     submitButton: {
         marginTop: theme.spacing(2),
@@ -66,10 +69,15 @@ export const AddPoints = (props) => {
             nb_points: '',
             id_professor: '',
             id_student: '',
+            negative: false,
         },
         onSubmit: async (values, actions) => {
             try {
-                await dispatch(addPoints(values));
+                const { negative, ...payload } = values;
+                if (negative) {
+                    payload.nb_points = -payload.nb_points;
+                }
+                await dispatch(addPoints(payload));
                 actions.resetForm();
             } catch {}
         }
@@ -105,6 +113,17 @@ export const AddPoints = (props) => {
                     }}
                 />
             </FormControl>
+            <FormControlLabel
+                className={classes.formControl}
+                control={
+                    <Switch
+                        checked={formik.values.negative}
+                        onChange={formik.handleChange('negative')}
+                        color="primary"
+                    />
+                }
+                label="Enlever des points"
+            />
             <Button
                 variant="contained"
                 color="primary"
