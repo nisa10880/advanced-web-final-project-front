@@ -25,11 +25,3 @@ export const store = createStore(
     applyMiddleware(thunk)
   )
 );
-
-export const fetchData = () => {
-  return dispatch => {
-    dispatch(getHouses());
-    dispatch(getProfessors());
-    dispatch(getStudents());
-  }
-}

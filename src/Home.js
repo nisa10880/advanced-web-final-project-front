@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
 import { AddPoints } from './AddPoints';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchData } from './state/store';
+import { fetchData } from './state/fetchData';
 import { AddStudent } from './AddStudent';
 import { AddProfessor } from './AddProfessor';
 

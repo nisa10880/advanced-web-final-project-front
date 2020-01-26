@@ -1,5 +1,5 @@
 import { api } from '../../api';
-import { fetchData } from '../store';
+import { fetchData } from '../fetchData';
 
 export const GET_STUDENTS_LOADING = "GET_STUDENTS_LOADING";
 export const GET_STUDENTS_SUCCESS = "GET_STUDENT_SUCCESS";

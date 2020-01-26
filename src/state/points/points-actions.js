@@ -1,6 +1,6 @@
 import { api } from '../../api';
 import { setSnackbarMessage } from '../snackbar/snackbar-actions';
-import { fetchData } from '../store';
+import { fetchData } from '../fetchData';
 
 export const ADD_POINTS_LOADING = "ADD_POINTS_LOADING";
 export const ADD_POINTS_SUCCESS = "ADD_POINTS_SUCCESS";
