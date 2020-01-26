@@ -57,7 +57,6 @@ const Panel = ({title, children}) => {
 }
 
 export const Home = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const professorsState = useSelector(state => state.professors);
   const studentsState = useSelector(state => state.students);
@@ -87,7 +86,7 @@ export const Home = () => {
           />
         </Panel>
       </Grid>
-      <Grid item xs={6} sm={4}>
+      <Grid item xs={12} sm={6} md={4}>
         <Panel title="Ajouter des points">
           <AddPoints
             professors={professorsState.professors}
