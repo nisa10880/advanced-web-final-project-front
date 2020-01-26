@@ -25,7 +25,6 @@ export const addPoints = (values) => {
     try {
       dispatch(addPointsLoading());
       const state = getState();
-      console.log(state, values);
       const payload = {
         ...values,
         id_house: state.students.students.find(s => s.id === values.id_student).id_house,

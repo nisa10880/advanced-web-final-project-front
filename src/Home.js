@@ -8,9 +8,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { AddPoints } from '../AddPoints';
+import { AddPoints } from './AddPoints';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchData } from '../state/store';
+import { fetchData } from './state/store';
+import { AddStudent } from './AddStudent';
+import { AddProfessor } from './AddProfessor';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -59,7 +61,6 @@ const Panel = ({title, children}) => {
 export const Home = () => {
   const dispatch = useDispatch();
   const professorsState = useSelector(state => state.professors);
-  const studentsState = useSelector(state => state.students);
   const housesState = useSelector(state => state.houses);
 
   useEffect(() => {
@@ -86,12 +87,19 @@ export const Home = () => {
           />
         </Panel>
       </Grid>
-      <Grid item xs={12} sm={6} md={4}>
+      <Grid item xs={12} sm={12} md={4}>
         <Panel title="Ajouter des points">
-          <AddPoints
-            professors={professorsState.professors}
-            students={studentsState.students}
-          />
+          <AddPoints />
+        </Panel>
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <Panel title="Ajouter un élève">
+          <AddStudent />
+        </Panel>
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <Panel title="Ajouter un professeur">
+          <AddProfessor />
         </Panel>
       </Grid>
     </Grid>

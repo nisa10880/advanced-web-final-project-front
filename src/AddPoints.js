@@ -1,68 +1,24 @@
 import React from 'react';
-import PropTypes from 'proptypes';
 import { useFormik } from 'formik';
 
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { makeStyles } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addPoints } from './state/points/points-actions';
+import { SelectItem } from './SelectItem';
 
-const useStyles = makeStyles((theme) => ({
-    formControl: {
-        width: '100%',
-        marginTop: theme.spacing(2),
-    },
-    submitButton: {
-        marginTop: theme.spacing(2),
-    },
-}));
-
-const SelectPerson = ({ items, label, name, formik, formikKey }) => {
-    const classes = useStyles();
-    return (
-        <FormControl className={classes.formControl}>
-            <InputLabel id={`label-${name}`}>{label}</InputLabel>
-            <Select
-                id={`select-${name}`}
-                labelId={`label-${name}`}
-                name={name}
-                value={formik.values[formikKey]}
-                onChange={formik.handleChange(formikKey)}
-            >
-                {
-                    items ? items.map((item) => (
-                        <MenuItem
-                            value={item.id}
-                            key={item.id}
-                        >
-                            {`${item.firstname} ${item.lastname}`}
-                        </MenuItem>
-                    )) : null
-                }
-            </Select>
-        </FormControl>
-    );
-}
-
-SelectPerson.propTypes = {
-    items: PropTypes.array,
-    label: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    formik: PropTypes.object,
-    formikKey: PropTypes.string,
-};
+import { useFormStyles } from './useFormStyles';
 
 export const AddPoints = (props) => {
-    const classes = useStyles();
+    const classes = useFormStyles();
     const dispatch = useDispatch();
+
+    const professorsState = useSelector(state => state.professors);
+    const studentsState = useSelector(state => state.students);
 
     const formik = useFormik({
         initialValues: {
@@ -85,19 +41,21 @@ export const AddPoints = (props) => {
 
     return (
         <form onSubmit={formik.handleSubmit}>
-            <SelectPerson
+            <SelectItem
                 label="Professeur"
+                extractLabel={p => `${p.firstname} ${p.lastname}`}
                 name="professor"
                 formik={formik}
                 formikKey="id_professor"
-                items={props.professors}
+                items={professorsState.professors}
             />
-            <SelectPerson
+            <SelectItem
                 label="Élève"
+                extractLabel={e => `${e.firstname} ${e.lastname}`}
                 name="student"
                 formik={formik}
                 formikKey="id_student"
-                items={props.students}
+                items={studentsState.students}
             />
             <FormControl className={classes.formControl}>
                 <TextField
@@ -137,7 +95,4 @@ export const AddPoints = (props) => {
     );
 }
 
-AddPoints.propTypes = {
-    professors: PropTypes.array,
-    students:  PropTypes.array,
-};
+AddPoints.propTypes = {};
