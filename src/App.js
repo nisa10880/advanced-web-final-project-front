@@ -1,27 +1,27 @@
 import React from 'react';
 import './App.css';
-import { Provider, useSelector, useDispatch } from "react-redux";
+import { Provider, useSelector, useDispatch } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Snackbar from '@material-ui/core/Snackbar';
 
-import { store } from "./state/store";
+import { store } from './state/store';
 
 import { Home } from './Home';
 import { closeSnackbar } from './state/snackbar/snackbar-actions';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(4),
-  }
+  },
 }));
 
 const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const snackbarState = useSelector(state => state.snackbar);
+  const snackbarState = useSelector((state) => state.snackbar);
 
   return (
     <>
@@ -43,9 +43,8 @@ const App = () => {
       />
     </>
   );
-}
+};
 
 App.propTypes = {};
-
 
 export default App;

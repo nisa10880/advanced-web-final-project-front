@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,54 +14,50 @@ import { fetchData } from './state/store';
 import { AddStudent } from './AddStudent';
 import { AddProfessor } from './AddProfessor';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   title: {
     marginBottom: theme.spacing(1),
   },
   item: {
     padding: theme.spacing(2),
-  }
+  },
 }));
 
-const ItemsList = ({data, extractPrimary, extractSecondary}) => {
+const ItemsList = ({ data, extractPrimary, extractSecondary }) => {
   if (!data) {
-    return (
-      <p>Loading...</p>
-    );
+    return <p>Loading...</p>;
   }
 
   return (
     <List>
-      {
-        data.map(el => (
-          <ListItem
-            key={el.id}
-          >
-            <ListItemText
-              primary={extractPrimary(el)}
-              secondary={extractSecondary(el)}
-            />
-          </ListItem>
-        ))
-      }
+      {data.map((el) => (
+        <ListItem key={el.id}>
+          <ListItemText
+            primary={extractPrimary(el)}
+            secondary={extractSecondary(el)}
+          />
+        </ListItem>
+      ))}
     </List>
-  )
-}
+  );
+};
 
-const Panel = ({title, children}) => {
+const Panel = ({ title, children }) => {
   const classes = useStyles();
   return (
     <Paper className={classes.item}>
-      <Typography variant="h4" component="h2" className={classes.title}>{title}</Typography>
+      <Typography variant="h4" component="h2" className={classes.title}>
+        {title}
+      </Typography>
       {children}
     </Paper>
   );
-}
+};
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const professorsState = useSelector(state => state.professors);
-  const housesState = useSelector(state => state.houses);
+  const professorsState = useSelector((state) => state.professors);
+  const housesState = useSelector((state) => state.houses);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -104,4 +100,4 @@ export const Home = () => {
       </Grid>
     </Grid>
   );
-}
+};
